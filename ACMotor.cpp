@@ -9,21 +9,31 @@ ACMotor::ACMotor(int relayPin1, int relayPin2)
 }
 
 void ACMotor::initialize() {
-    // Bu sınıf için ekstra başlangıç yapılandırması gerekmez
+    /*for(int i = 0; i < 3; i++) {
+        digitalWrite(_relayPin1, LOW); // 1. röleyi aktif tut
+        digitalWrite(_relayPin2, LOW);  // 2. röleyi aktif tut
+        delay(1000);
+        digitalWrite(_relayPin1, HIGH); // 1. röleyi pasif tut
+        digitalWrite(_relayPin2, HIGH);  // 2. röleyi pasif tut
+        delay(1000);
+    }*/
+    digitalWrite(_relayPin1, HIGH); // 1. röleyi pasif tut
+    digitalWrite(_relayPin2, HIGH);  // 2. röleyi pasif tut
 }
 
 void ACMotor::forward() {
-    digitalWrite(_relayPin1, HIGH); // 1. röleyi aktif et, motor bir yönde döner (örn. saat yönünde)
-    digitalWrite(_relayPin2, LOW);  // 2. röleyi pasif tut
+    digitalWrite(_relayPin1, LOW); // 1. röleyi aktif et, motor bir yönde döner (örn. saat yönünde)
+    digitalWrite(_relayPin2, HIGH);  // 2. röleyi pasif tut
 }
 
 void ACMotor::reverse() {
-    digitalWrite(_relayPin1, LOW);  // 1. röleyi pasif tut
-    digitalWrite(_relayPin2, HIGH); // 2. röleyi aktif et, motor diğer yönde döner (örn. saat yönünün tersinde)
+    digitalWrite(_relayPin1, HIGH);  // 1. röleyi pasif tut
+    digitalWrite(_relayPin2, LOW); // 2. röleyi aktif et, motor diğer yönde döner (örn. saat yönünün tersinde)
 }
 
 void ACMotor::stop() {
     // Her iki röleyi de pasif duruma getirerek motoru durdur
-    digitalWrite(_relayPin1, LOW);
-    digitalWrite(_relayPin2, LOW);
+    digitalWrite(_relayPin1, HIGH); // 1. röleyi pasif tut
+    digitalWrite(_relayPin2, HIGH);  // 2. röleyi pasif tut
 }
+

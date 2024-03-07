@@ -23,3 +23,4 @@ void ServoMotor::setAngle(int angle) {
 ServoMotor::~ServoMotor() {
     stop(); // Servo motoru pin'den ayırır
 }
+
