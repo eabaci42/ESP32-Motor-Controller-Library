@@ -3,25 +3,21 @@
 
 #include "Motor.h"
 #include <Arduino.h>
+#include <ESP32Servo.h>
 
 class ServoMotor : public Motor {
 public:
-    ServoMotor(int pwmPin);
-    void initialize() override;
-    void setAngle(int angle); // Servo motorun açısını ayarlar
-    void stop() override; // Bu metod bu kontekste anlam ifade etmeyebilir
-    // Implement these methods to comply with the abstract base class, even if they do nothing
-    void forward() override { /* Servo motor için bu metodun bir anlamı yok */ }
-    void reverse() override { /* Servo motor için bu metodun bir anlamı yok */ }
+    explicit ServoMotor(int pin); // Servo motorun bağlı olduğu pin numarası ile oluşturucu
+    void initialize() override; // Motor donanımını başlatır
+    void forward() override {} // Bu fonksiyonlar artık kullanılmayacak
+    void reverse() override {} // Bu fonksiyonlar artık kullanılmayacak
+    void stop() override;    // Motoru durdurur
+    ~ServoMotor(); // Yıkıcı
+    void setAngle(int angle); // Servo motoru belirli bir açıya ayarlar
+
 private:
-    int _pwmPin;
-    int _angle; // Son ayarlanan açı
-    static const int ledChannel = 0; // PWM kanalı için sabit bir değer atayın
-    static const int freq = 50; // Servo motor için tipik PWM frekansı (Hz)
-    static const int resolution = 16; // PWM çözünürlüğü (bit)
-    static const int minPulseWidth = 544; // Mikrosaniye cinsinden minimum pulse genişliği
-    static const int maxPulseWidth = 2400; // Mikrosaniye cinsinden maksimum pulse genişliği
-    void writeMicroseconds(int value); // PWM sinyali ile servo motorunu kontrol eder
+    int _pin; // Servo motorun bağlı olduğu pin
+    Servo _servo; // Servo nesnesi
 };
 
 #endif
